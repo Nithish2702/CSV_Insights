@@ -1,9 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { useState } from 'react'
 import Home from './pages/Home'
 import Reports from './pages/Reports'
 import Status from './pages/Status'
 
 function App() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   return (
     <Router>
       <div className="min-h-screen bg-gray-50">
@@ -35,8 +38,46 @@ function App() {
                   </Link>
                 </div>
               </div>
+              <div className="flex items-center sm:hidden">
+                <button
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
+                >
+                  <span className="sr-only">Open menu</span>
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
+          {mobileMenuOpen && (
+            <div className="sm:hidden">
+              <div className="pt-2 pb-3 space-y-1">
+                <Link
+                  to="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block pl-3 pr-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600"
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/reports"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block pl-3 pr-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600"
+                >
+                  Reports
+                </Link>
+                <Link
+                  to="/status"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block pl-3 pr-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600"
+                >
+                  Status
+                </Link>
+              </div>
+            </div>
+          )}
         </nav>
 
         <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
